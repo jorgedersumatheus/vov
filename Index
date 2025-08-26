@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VOV — Coleção Completa</title>
+<meta name="description" content="Ver Ouvir Vendas — Coleção de criações originais, manifestos e eBooks.">
+<style>
+  :root{
+    --vbg:#0b0f14; --vcard:#0f1520; --vtxt:#e6edf3; --vfad:#0008;
+    --vacc:#ffd34d; --vchip:#111; --rad:18px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--vbg);color:var(--vtxt);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+  a{color:inherit}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+  header.vov-hero{padding:28px 0 12px;text-align:center}
+  .vov-title{margin:0 0 10px;font-size:clamp(22px,3.2vw,34px);letter-spacing:.2px}
+  .vov-sub{opacity:.8;margin:0 0 14px;font-size:clamp(14px,2vw,16px)}
+  .vov-cta-top{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .vov-btn{padding:10px 14px;border:1px solid #2a3340;border-radius:999px;text-decoration:none;transition:.2s}
+  .vov-btn:hover{background:#121a25}
+  .vov-btn--solid{background:var(--vacc);color:#000;border-color:transparent}
+  /* Grid */
+  .vov-grid{padding:22px 0 46px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+  .vov-card{position:relative;background:var(--vcard);border-radius:var(--rad);overflow:hidden;box-shadow:0 10px 30px #0005}
+  .vov-img{width:100%;display:block;aspect-ratio:3/4;object-fit:cover;background:#0b0f14}
+  .vov-overlay{
+    position:absolute;inset:auto 0 0 0;display:flex;gap:8px;justify-content:center;align-items:center;
+    padding:14px;background:linear-gradient(to top, var(--vfad), transparent 55%);
+    opacity:0;transform:translateY(10px);transition:.25s ease
+  }
+  .vov-card:hover .vov-overlay{opacity:1;transform:translateY(0)}
+  @media(hover:none){.vov-overlay{opacity:1;transform:none}}
+  .vov-chip{
+    text-decoration:none;background:var(--vchip);color:#fff;padding:10px 14px;border-radius:999px;
+    border:1px solid #2b2b2b;backdrop-filter:saturate(140%) blur(6px);font-weight:600
+  }
+  .vov-chip:hover{transform:translateY(-1px)}
+  .vov-name{margin:10px 12px 12px;font-size:15px;opacity:.95}
+  /* Explorar / Manifesto */
+  .vov-explorar{border-top:1px solid #1a2533;padding:36px 0 64px;text-align:center}
+  .vov-explorar h2{margin:0 0 8px;font-size:clamp(18px,2.6vw,24px)}
+  .vov-explorar p{margin:0 0 16px;opacity:.85}
+  footer{border-top:1px solid #1a2533;opacity:.8;text-align:center;padding:18px 0 34px;font-size:14px}
+</style>
+</head>
+<body>
+
+<header class="vov-hero">
+  <div class="wrap">
+    <h1 class="vov-title">Ver Ouvir Vendas — Coleção</h1>
+    <p class="vov-sub">Palavra que canta. Presença que vende.</p>
+    <nav class="vov-cta-top">
+      <a href="#colecao" class="vov-btn">Ver a Coleção</a>
+      <a href="https://hotm.art/ar25" class="vov-btn">Comprar agora</a>
+      <a href="#explorar" class="vov-btn">Explorar a Coleção</a>
+      <a href="manifesto.html" class="vov-btn vov-btn--solid">Ler Manifesto</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="colecao" class="vov-grid">
+
+    <!-- 1. A Pedra do Pó Branco -->
+    <article class="vov-card">
+      <img loading="lazy" src="capa_pedra_do_po_branco_2.png" alt="A Pedra do Pó Branco — capa" class="vov-img">
+      <div class="vov-overlay">
+        <a href="capa_pedra_do_po_branco_2.png" class="vov-chip">Ver</a>
+        <a href="https://hotm.art/pm25" class="vov-chip">Comprar</a>
+      </div>
+      <h3 class="vov-name">A Pedra do Pó Branco</h3>
+    </article>
+
+    <!-- 2. Anúncios Meta-Guia Livre -->
+    <article class="vov-card">
+      <img loading="lazy" src="anummeta.png" alt="Anúncios Meta-Guia Livre — capa" class="vov-img">
+      <div class="vov-overlay">
+        <a href="anummeta.png" class="vov-chip">Ver</a>
+        <a href="https://hotm.art/am25" class="vov-chip">Comprar</a>
+      </div>
+      <h3 class="vov-name">Anúncios Meta-Guia Livre</h3>
+    </article>
+
+    <!-- 3. Anúncios que Vendem -->
+    <article class="vov-card">
+      <img loading="lazy" src="anunvend.png" alt="Anúncios que Vendem — capa" class="vov-img">
+      <div class="vov-overlay">
+        <a href="anunvend.png" class="vov-chip">Ver</a>
+        <a href="https://hotm.art/ar25" class="vov-chip">Comprar</a>
+      </div>
+      <h3 class="vov-name">Anúncios que Vendem</h3>
+    </article>
+
+    <!-- 4. Sua Imagem Vale Muito -->
+    <article class="vov-card">
+      <img loading="lazy" src="a-img3_suaimavale.png" alt="Sua Imagem Vale Muito — capa" class="vov-img">
+      <div class="vov-overlay">
+        <a href="a-img3_suaimavale.png" class="vov-chip">Ver</a>
+        <a href="https://pay.kiwify.com.br/lus2aIc" class="vov-chip">Comprar</a>
+      </div>
+      <h3 class="vov-name">Sua Imagem Vale Muito</h3>
+    </article>
+
+    <!-- 5. Os Segredos de um Nômade -->
+    <article class="vov-card">
+      <img loading="lazy" src="a_img5_nomade.png" alt="Os Segredos de um Nômade — capa" class="vov-img">
+      <div class="vov-overlay">
+        <a href="a_img5_nomade.png" class="vov-chip">Ver</a>
+        <a href="https://pay.kiwify.com.br/MDJnY74" class="vov-chip">Comprar</a>
+      </div>
+      <h3 class="vov-name">Os Segredos de um Nômade</h3>
+    </article>
+
+    <!-- 6. Macrobiótica Zen -->
+    <article class="vov-card">
+      <img loading="lazy" src="a_img6_macro.png" alt="Macrobiótica Zen — capa" class="vov-img">
+      <div class="vov-overlay">
+        <a href="a_img6_macro.png" class="vov-chip">Ver</a>
+        <a href="https://pay.kiwify.com.br/ajIuPbm" class="vov-chip">Comprar</a>
+      </div>
+      <h3 class="vov-name">Macrobiótica Zen</h3>
+    </article>
+
+    <!-- 7. Milton Santos — Reflexões e Conexões -->
+    <article class="vov-card">
+      <img loading="lazy" src="miltonhot2(1).jpg" alt="Milton Santos — Reflexões e Conexões — capa" class="vov-img">
+      <div class="vov-overlay">
+        <a href="miltonhot2(1).jpg" class="vov-chip">Ver</a>
+        <a href="#" class="vov-chip" title="Inserir link Hotmart">Comprar</a>
+      </div>
+      <h3 class="vov-name">Milton Santos — Reflexões e Conexões</h3>
+    </article>
+
+    <!-- 8. Língua nos Dentes -->
+    <article class="vov-card">
+      <img loading="lazy" src="linguahot2(1).jpg" alt="Língua nos Dentes — capa" class="vov-img">
+      <div class="vov-overlay">
+        <a href="linguahot2(1).jpg" class="vov-chip">Ver</a>
+        <a href="#" class="vov-chip" title="Inserir link de checkout">Comprar</a>
+      </div>
+      <h3 class="vov-name">Língua nos Dentes</h3>
+    </article>
+
+    <!-- 9. BLACKVOX Audio Playlists -->
+    <article class="vov-card">
+      <img loading="lazy" src="a_img9_blackvox.jpg" alt="BLACKVOX Audio Playlists — capa" class="vov-img">
+      <div class="vov-overlay">
+        <a href="a_img9_blackvox.jpg" class="vov-chip">Ver</a>
+        <a href="https://pay.kiwify.com.br/7mLrclo" class="vov-chip">Comprar</a>
+      </div>
+      <h3 class="vov-name">BLACKVOX — Audio Playlists</h3>
+    </article>
+
+    <!-- 10. JDVV — Jorge Dersu Voz & Violão -->
+    <article class="vov-card">
+      <img loading="lazy" src="a_img10_jdvv.jpg" alt="JDVV — Jorge Dersu Voz & Violão — capa" class="vov-img">
+      <div class="vov-overlay">
+        <a href="a_img10_jdvv.jpg" class="vov-chip">Ver</a>
+        <a href="#" class="vov-chip" title="Inserir link de checkout">Comprar</a>
+      </div>
+      <h3 class="vov-name">JDVV — Jorge Dersu Voz & Violão</h3>
+    </article>
+
+    <!-- 11. Meu Violão (foto) -->
+    <article class="vov-card">
+      <img loading="lazy" src="meuviolao3.jpg" alt="Meu Violão — imagem" class="vov-img">
+      <div class="vov-overlay">
+        <a href="meuviolao3.jpg" class="vov-chip">Ver</a>
+        <a href="#" class="vov-chip" title="Definir destino">Comprar</a>
+      </div>
+      <h3 class="vov-name">Meu Violão</h3>
+    </article>
+
+    <!-- 12. Nota -->
+    <article class="vov-card">
+      <img loading="lazy" src="a_img12_nota.jpg" alt="Nota — imagem" class="vov-img">
+      <div class="vov-overlay">
+        <a href="a_img12_nota.jpg" class="vov-chip">Ver</a>
+        <a href="#" class="vov-chip" title="Definir destino">Comprar</a>
+      </div>
+      <h3 class="vov-name">Nota</h3>
+    </article>
+
+    <!-- 13. Lista -->
+    <article class="vov-card">
+      <img loading="lazy" src="a_img13_lista.jpg" alt="Lista — imagem" class="vov-img">
+      <div class="vov-overlay">
+        <a href="a_img13_lista.jpg" class="vov-chip">Ver</a>
+        <a href="#" class="vov-chip" title="Definir destino">Comprar</a>
+      </div>
+      <h3 class="vov-name">Lista</h3>
+    </article>
+
+  </section>
+
+  <section id="explorar" class="vov-explorar">
+    <h2>Explorar a Coleção</h2>
+    <p>Manifestos, bastidores de criação e lançamentos VOV.</p>
+    <a href="manifesto.html" class="vov-btn vov-btn--solid">Ler Manifesto</a>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <small>© VOV — Ver Ouvir Vendas. Inteligência Vital em movimento. Save Simpatia!</small>
+  </div>
+</footer>
+
+</body>
+</html>
