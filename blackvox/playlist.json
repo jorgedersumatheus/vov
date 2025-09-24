@@ -1,113 +1,14 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BLACKVOX v3 — Playlists Áudio</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #f5f5f5;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-    header {
-      padding: 20px;
-      background: #000;
-      border-bottom: 2px solid #ffcc00;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 24px;
-      color: #ffcc00;
-    }
-    #player {
-      margin: 20px auto;
-      max-width: 400px;
-      background: #222;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
-    }
-    audio {
-      width: 100%;
-      margin: 10px 0;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      padding: 8px;
-      margin: 5px 0;
-      background: #333;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    li:hover {
-      background: #444;
-    }
-    .playing {
-      background: #ffcc00;
-      color: #000;
-      font-weight: bold;
-    }
-    footer {
-      margin-top: 30px;
-      font-size: 12px;
-      color: #aaa;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>BLACKVOX v3 — Playlists Áudio</h1>
-    <p>Ver • Ouvir • Vender • Viver</p>
-  </header>
-
-  <div id="player">
-    <h2 id="now-playing">▶ Nenhuma faixa selecionada</h2>
-    <audio id="audio" controls></audio>
-    <ul id="playlist"></ul>
-  </div>
-
-  <footer>
-    <p>© 2025 V O V — Ver Ouvir Vendas</p>
-  </footer>
-
-  <script>
-    // Lista de músicas (adicione os arquivos dentro de /musicas/)
-    const tracks = [
-      { title: "Brian Eno — An Ending (Ascent)", file: "musicas/brianeno.mp3" },
-      { title: "John Coltrane — A Love Supreme", file: "musicas/coltrane.mp3" },
-      { title: "Hermeto Pascoal — Bebê", file: "musicas/hermeto.mp3" }
-    ];
-
-    const audio = document.getElementById('audio');
-    const playlistEl = document.getElementById('playlist');
-    const nowPlaying = document.getElementById('now-playing');
-
-    // Carregar lista
-    tracks.forEach((track, index) => {
-      const li = document.createElement('li');
-      li.textContent = track.title;
-      li.onclick = () => playTrack(index);
-      playlistEl.appendChild(li);
-    });
-
-    // Função tocar faixa
-    function playTrack(index) {
-      audio.src = tracks[index].file;
-      audio.play();
-      nowPlaying.textContent = "▶ Tocando agora: " + tracks[index].title;
-
-      // Atualiza destaque
-      document.querySelectorAll('#playlist li').forEach(el => el.classList.remove('playing'));
-      playlistEl.children[index].classList.add('playing');
-    }
-  </script>
-</body>
-</html>
+[
+  {
+    "title": "Brian Eno — An Ending (Ascent)",
+    "file": "audios/brian_eno.mp3"
+  },
+  {
+    "title": "John Coltrane — A Love Supreme",
+    "file": "audios/coltrane_love_supreme.mp3"
+  },
+  {
+    "title": "Hermeto Pascoal — Bebê",
+    "file": "audios/hermeto_bebe.mp3"
+  }
+]
