@@ -1,7 +1,9 @@
 [
   {
     "title": "Brian Eno — An Ending (Ascent)",
-    "file": "audios/brian_eno.mp3"
+    "file":
+    "https://drive.google.com/uc?export=
+    download&id=1tNKLzjo0b1mSTgDP1Litew_vQwaNs45y"
   },
   {
     "title": "John Coltrane — A Love Supreme",
@@ -9,6 +11,11 @@
   },
   {
     "title": "Hermeto Pascoal — Bebê",
-    "file": "audios/hermeto_bebe.mp3"
+    "file": 
+    "https://drive.google.com/uc?export=
+    download&id=1tNKLzjo0b1mSTgDP1Litew_vQwaNs45y"
+    
+    
+    audios/hermeto_bebe.mp3"
   }
 ]
