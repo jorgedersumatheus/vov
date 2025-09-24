@@ -1,113 +1,189 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BLACKVOX v3 — Playlists Áudio</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #f5f5f5;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-    header {
-      padding: 20px;
-      background: #000;
-      border-bottom: 2px solid #ffcc00;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 24px;
-      color: #ffcc00;
-    }
-    #player {
-      margin: 20px auto;
-      max-width: 400px;
-      background: #222;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
-    }
-    audio {
-      width: 100%;
-      margin: 10px 0;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      padding: 8px;
-      margin: 5px 0;
-      background: #333;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    li:hover {
-      background: #444;
-    }
-    .playing {
-      background: #ffcc00;
-      color: #000;
-      font-weight: bold;
-    }
-    footer {
-      margin-top: 30px;
-      font-size: 12px;
-      color: #aaa;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BLACKVOX v3 — Playlists Áudio</title>
+<meta name="description" content="Player leve para playlists via playlist.json.">
+<style>
+:root{
+  --bg:#0c0f12;--panel:#141a20;--ring:#232a34;--text:#e9eef3;--muted:#9fb2c7;
+  --brand:#f3b338;--soft:#0e141b;--ok:#28d17c;
+}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
+header{padding:24px 16px 8px;text-align:center}
+.pill{display:inline-block;font-size:12px;padding:4px 10px;border-radius:999px;background:#1a2330;border:1px solid var(--ring);color:var(--muted)}
+h1{margin:6px 0 0;font-size:22px;font-weight:800}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+main{max-width:880px;margin:18px auto 34px;padding:0 16px}
+.player{background:linear-gradient(180deg,#0f1520,#0b1118);border:1px solid var(--ring);border-radius:18px;box-shadow:0 10px 40px #0006,inset 0 0 0 1px #0004;padding:16px}
+.now{display:flex;gap:12px;justify-content:space-between;align-items:center;background:var(--panel);border:1px solid var(--ring);border-radius:12px;padding:10px 12px;margin-bottom:12px}
+.title{font-weight:700}
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+button{border:0;border-radius:10px;padding:9px 12px;font-weight:700;cursor:pointer;background:var(--brand);color:#231a00}
+button.sec{background:#1f2832;color:var(--text);border:1px solid var(--ring)}
+button.gh{background:transparent;color:var(--muted);border:1px solid var(--ring)}
+.progress{height:6px;background:#243041;border-radius:4px;overflow:hidden}
+.bar{height:100%;width:0%;background:linear-gradient(90deg,#ffd66b,var(--brand))}
+.list{display:flex;flex-direction:column;gap:10px;margin:10px 0;max-height:60vh;overflow:auto}
+.item{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--ring);border-radius:12px;padding:10px 12px}
+.item.active{outline:2px solid var(--brand);box-shadow:0 0 0 3px rgba(243,179,56,.15) inset}
+.small{color:var(--muted);font-size:.92rem}
+.footer{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.9rem;margin-top:10px}
+a{color:#86c7ff;text-decoration:none}
+input[type="range"]{accent-color:var(--brand);cursor:pointer}
+</style>
 </head>
 <body>
-  <header>
-    <h1>BLACKVOX v3 — Playlists Áudio</h1>
-    <p>Ver • Ouvir • Vender • Viver</p>
-  </header>
+<header>
+  <span class="pill">V O V</span>
+  <h1>BLACKVOX v3 — Playlists Áudio</h1>
+  <div class="sub">Ver • Ouvir • Vender • Viver — Lê <code>playlist.json</code> e toca já.</div>
+</header>
 
-  <div id="player">
-    <h2 id="now-playing">▶ Nenhuma faixa selecionada</h2>
-    <audio id="audio" controls></audio>
-    <ul id="playlist"></ul>
-  </div>
+<main>
+  <section class="player" aria-label="Player">
+    <div class="now">
+      <div>
+        <div id="status" class="small">Carregando playlist…</div>
+        <div id="now" class="title">—</div>
+      </div>
+      <div class="controls">
+        <button id="prev" class="sec" title="Anterior">⏮</button>
+        <button id="play" title="Play/Pause">▶️</button>
+        <button id="next" class="sec" title="Próxima">⏭</button>
+        <span class="small">🔈</span>
+        <input id="vol" type="range" min="0" max="1" step="0.01" value="0.9">
+      </div>
+    </div>
 
-  <footer>
-    <p>© 2025 V O V — Ver Ouvir Vendas</p>
-  </footer>
+    <div class="progress"><div id="bar" class="bar"></div></div>
 
-  <script>
-    // Lista de músicas (adicione os arquivos dentro de /musicas/)
-    const tracks = [
-      { title: "Brian Eno — An Ending (Ascent)", file: "musicas/brianeno.mp3" },
-      { title: "John Coltrane — A Love Supreme", file: "musicas/coltrane.mp3" },
-      { title: "Hermeto Pascoal — Bebê", file: "musicas/hermeto.mp3" }
-    ];
+    <div id="list" class="list" aria-label="Lista"></div>
 
-    const audio = document.getElementById('audio');
-    const playlistEl = document.getElementById('playlist');
-    const nowPlaying = document.getElementById('now-playing');
+    <audio id="audio" crossorigin="anonymous"></audio>
 
-    // Carregar lista
-    tracks.forEach((track, index) => {
-      const li = document.createElement('li');
-      li.textContent = track.title;
-      li.onclick = () => playTrack(index);
-      playlistEl.appendChild(li);
-    });
+    <div class="footer">
+      <span class="small">Sessão salva no navegador (localStorage).</span>
+      <a href="playlist.json" target="_blank" rel="noopener">ver playlist.json</a>
+    </div>
+  </section>
+</main>
 
-    // Função tocar faixa
-    function playTrack(index) {
-      audio.src = tracks[index].file;
-      audio.play();
-      nowPlaying.textContent = "▶ Tocando agora: " + tracks[index].title;
+<script>
+const audio = document.getElementById('audio');
+const nowEl = document.getElementById('now');
+const statusEl = document.getElementById('status');
+const bar = document.getElementById('bar');
+const listEl = document.getElementById('list');
+const btnPlay = document.getElementById('play');
+const btnNext = document.getElementById('next');
+const btnPrev = document.getElementById('prev');
+const vol = document.getElementById('vol');
 
-      // Atualiza destaque
-      document.querySelectorAll('#playlist li').forEach(el => el.classList.remove('playing'));
-      playlistEl.children[index].classList.add('playing');
+let tracks = [];  // [{title,file}]
+let idx = -1;
+
+// UI
+function render(){
+  listEl.innerHTML = '';
+  tracks.forEach((t,i)=>{
+    const row = document.createElement('div');
+    row.className = 'item' + (i===idx?' active':'');
+    const left = document.createElement('div');
+    left.innerHTML = `<div>${t.title||'Faixa'}</div><div class="small">${t.file}</div>`;
+    const right = document.createElement('div');
+    const bPlay = document.createElement('button'); bPlay.className='sec'; bPlay.textContent='Tocar';
+    const bDel  = document.createElement('button'); bDel.className='gh';  bDel.textContent='Excluir';
+    bPlay.onclick = ()=> playAt(i);
+    bDel.onclick  = ()=> removeAt(i);
+    right.appendChild(bPlay); right.appendChild(bDel);
+    row.appendChild(left); row.appendChild(right);
+    listEl.appendChild(row);
+  });
+  nowEl.textContent = (idx>=0 && tracks[idx])? tracks[idx].title : '—';
+}
+
+function setNow(i){
+  idx = i;
+  render();
+  if(i<0 || i>=tracks.length){
+    nowEl.textContent = '—';
+    statusEl.textContent = 'Nenhuma faixa selecionada';
+    audio.removeAttribute('src');
+    return;
+  }
+  const t = tracks[i];
+  nowEl.textContent = t.title || '—';
+  statusEl.textContent = 'Pronto para tocar';
+  audio.src = t.file;
+  localStorage.setItem('BVX_LAST', String(i));
+}
+
+function playAt(i){
+  setNow(i);
+  audio.play().catch(err=>{
+    statusEl.textContent = 'Falha ao tocar (verifique a URL ou CORS)';
+    console.error('Playback error:', err);
+    alert('Não foi possível tocar esta faixa. Dica: hospede em /audios, GitHub Releases, Dropbox (?raw=1) ou CDN com CORS.');
+  });
+}
+
+function removeAt(i){
+  tracks.splice(i,1);
+  if(idx>=tracks.length) idx = tracks.length-1;
+  save();
+  render();
+  if(idx>=0) setNow(idx); else { audio.pause(); setNow(-1); }
+}
+
+function save(){
+  localStorage.setItem('BVX_PLAYLIST', JSON.stringify(tracks));
+}
+function loadLocal(){
+  try{
+    const p = JSON.parse(localStorage.getItem('BVX_PLAYLIST')||'[]');
+    if(Array.isArray(p)) tracks = p;
+    const last = parseInt(localStorage.getItem('BVX_LAST')||'-1',10);
+    setNow(isNaN(last)?-1:last);
+  }catch(e){}
+  render();
+}
+
+// Controles
+btnPlay.onclick = ()=> audio.paused ? audio.play() : audio.pause();
+audio.onplay  = ()=> btnPlay.textContent = '⏸';
+audio.onpause = ()=> btnPlay.textContent = '▶️';
+btnNext.onclick = ()=> tracks.length && playAt( (idx+1)%tracks.length );
+btnPrev.onclick = ()=> tracks.length && playAt( (idx-1+tracks.length)%tracks.length );
+vol.oninput = ()=> audio.volume = parseFloat(vol.value);
+audio.ontimeupdate = ()=>{
+  if(isFinite(audio.duration)) bar.style.width = (100*audio.currentTime/audio.duration).toFixed(1)+'%';
+};
+audio.onended = ()=> btnNext.click();
+
+// Carregar playlist.json (com cache-buster)
+async function fetchPlaylist(){
+  try{
+    const res = await fetch('playlist.json?ts='+Date.now(), {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    if(Array.isArray(data) && data.length){
+      tracks = data;
+      save();
     }
-  </script>
+    statusEl.textContent = tracks.length ? 'Playlist carregada' : 'Playlist vazia';
+  }catch(err){
+    statusEl.textContent = 'Erro ao carregar playlist.json';
+    console.error(err);
+  }
+}
+
+// Init
+(async function init(){
+  await fetchPlaylist();
+  loadLocal();
+})();
+</script>
 </body>
 </html>
