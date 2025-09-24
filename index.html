@@ -1,1 +1,101 @@
-<!doctype html><html lang="pt-br"><head>  <meta charset="utf-8" />  <meta name="viewport" content="width=device-width, initial-scale=1" />  <title>VOV — Ver, Ouvir, Vender, Viver</title>  <style>    :root{--bg:#0b1220;--card:#111a2b;--text:#e6eefc;--muted:#9bb3d1;--accent:#f5b300}    html,body{height:100%}    body{margin:0;background:radial-gradient(1200px 600px at 50% -10%, #142038 0%, var(--bg) 55%, #070c16 100%);         color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;display:grid;place-items:center}    .wrap{width:min(900px,92vw);padding:40px}    .card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));          border:1px solid rgba(255,255,255,.07); border-radius:18px; padding:28px 24px; box-shadow:0 10px 40px rgba(0,0,0,.35)}    h1{margin:0 0 8px;font-size:clamp(28px,4vw,40px);letter-spacing:.5px}    .tag{display:inline-block;background:rgba(245,179,0,.12);color:var(--accent);border:1px solid rgba(245,179,0,.35);         padding:6px 10px;border-radius:999px;font-weight:700;font-size:12px;letter-spacing:.12em}    p{margin:.4rem 0;color:var(--muted)}    .ok{margin-top:14px;display:inline-block;color:var(--text);text-decoration:none;border:1px solid rgba(255,255,255,.18);        padding:10px 14px;border-radius:10px}    footer{margin-top:22px;color:#cdd9f0;font-size:13px;opacity:.7}  </style></head><body>  <main class="wrap">    <div class="card">      <span class="tag">VOV • Página de teste</span>      <h1>Deu bom — a VOV está no ar!</h1>      <p>Se você está vendo esta página, o GitHub Pages do repositório <strong>vov</strong> está funcionando corretamente.</p>      <p>Próximo passo: subir o <em>template</em> do <strong>JOR NEWS VOV</strong> para publicar as edições diárias.</p>      <a class="ok" href="https://jorgematheus.mus.br">Voltar ao site principal</a>      <footer>V O V — Ver, Ouvir, Vender, Viver</footer>    </div>  </main></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>V O V — Ver • Ouvir • Vender • Viver | JOR NEWS</title>
+<meta name="description" content="V O V — Ver, Ouvir, Vender, Viver. JOR NEWS diário, cultura viva, comércio limpo e presença que vende.">
+<meta property="og:title" content="V O V — Ver • Ouvir • Vender • Viver | JOR NEWS">
+<meta property="og:description" content="Boletim diário: cultura viva e presença que vende.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jorgematheus.mus.br/">
+<meta property="og:image" content="https://jorgematheus.mus.br/img/vov-badge.svg">
+<link rel="icon" href="img/vov-badge.svg">
+<style>
+:root{
+  --bg:#0d0f12;--panel:#13161b;--text:#e9edf1;--muted:#a8b0bb;
+  --brand:#ffb400;--brand-2:#0de07b;--accent:#1f7cff;--card:#0f1217;
+  --ring:#2a2f39;--soft:#1a1f27;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+a{color:var(--brand);text-decoration:none}
+a:hover{opacity:.9}
+.wrap{max-width:1080px;margin:0 auto;padding:40px 20px}
+.badge{display:inline-flex;gap:.5rem;align-items:center;background:#1a1f27;border:1px solid var(--ring);padding:.25rem .6rem;border-radius:999px;font-weight:600;color:#ffce55;letter-spacing:.06em}
+h1{font-size:clamp(28px,5vw,46px);margin:.5rem 0 0}
+.sub{color:var(--muted);margin:.25rem 0 1.5rem}
+.row{display:grid;grid-template-columns:1fr;gap:16px;margin:18px 0 28px}
+@media(min-width:760px){.row{grid-template-columns:repeat(3,1fr)}}
+.btn{display:inline-block;background:linear-gradient(135deg,#0b3a9a,#0a2e7a);border:1px solid #153264;color:#fff;padding:.8rem 1rem;border-radius:12px;font-weight:700}
+.btn.yellow{background:linear-gradient(135deg,#f4a400,#e48b00);border-color:#8a5400}
+.card{background:var(--panel);border:1px solid var(--ring);border-radius:18px;padding:18px}
+.hbox{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.tag{background:#202733;border:1px solid #2c3544;color:#a8b7cc;border-radius:999px;padding:.2rem .55rem;font-size:.85rem}
+h2{font-size:clamp(20px,3.2vw,28px);margin:0 0 12px}
+ol{margin:.2rem 0;padding-left:1.2rem}
+hr{border:none;border-top:1px solid var(--ring);margin:22px 0}
+.footer{color:var(--muted);font-size:.95rem;margin-top:28px}
+.kicker{color:#b7ffda}
+.small{color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="badge">V O V</span>
+    <h1>Ver • Ouvir • Vender • Viver</h1>
+    <div class="sub">Palavra que canta. Presença que vende. Cultura que move.</div>
+
+    <div class="row">
+      <a class="btn yellow" href="/vov/">Abrir JOR NEWS V O V</a>
+      <a class="btn" href="/contato.html">Falar com a V O V</a>
+      <a class="btn" href="/blackvox/">Ouvir a trilha (BLACKVOX)</a>
+    </div>
+
+    <div class="hbox">
+      <h2>Hoje no JOR NEWS — <span class="kicker" id="hoje"></span></h2>
+      <a class="tag" href="/vov/">Ler edição completa</a>
+    </div>
+
+    <div class="row" style="grid-template-columns:1.1fr .9fr 1fr">
+      <section class="card">
+        <h3 class="tag">Editorial</h3>
+        <div class="small">Salvador, <span id="data"></span></div>
+        <p>Um assoprão de vida. Em meio à pressa e às marés, reafirmamos: cada pequeno passo é presença e futuro. Notícia não é só dado — é ritmo, é respiro, é presença.</p>
+      </section>
+
+      <section class="card">
+        <h3 class="tag">📌 Pilares do Dia</h3>
+        <ol>
+          <li><b>NEGÓCIO</b> — Loja VOV em ajuste fino.</li>
+          <li><b>CRIAÇÃO</b> — JOR NEWS vivo, diário.</li>
+          <li><b>REDE</b> — Telegram como canal oficial.</li>
+          <li><b>APRENDIZADO</b> — Infra (Cloudflare) afiada.</li>
+          <li><b>RUA</b> — Cultura & democracia, presença & cuidado.</li>
+        </ol>
+      </section>
+
+      <section class="card">
+        <h3 class="tag">Análise VOV</h3>
+        <p>Respirar, ler, ouvir. Anotar e agir. Menos ruído, mais ponte. O resto é vaidade.</p>
+      </section>
+    </div>
+
+    <hr>
+    <div class="footer">
+      <img src="/img/vov-badge.svg" alt="VOV" style="height:22px;vertical-align:middle;margin-right:.5rem">
+      V O V — Ver, Ouvir, Vender, Viver • <a href="/contato.html">Contato</a> • <a href="/vov/">Arquivo</a>
+    </div>
+  </div>
+
+<script>
+const hoje = new Date();
+const dias = ["dom","seg","ter","qua","qui","sex","sáb"];
+const meses = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+document.getElementById("hoje").textContent =
+  `${hoje.getDate()} ${meses[hoje.getMonth()]} ${hoje.getFullYear()}`;
+document.getElementById("data").textContent =
+  ` ${dias[hoje.getDay()]}, ${hoje.getDate()} ${meses[hoje.getMonth()]} ${hoje.getFullYear()}`;
+</script>
+</body>
+</html>
