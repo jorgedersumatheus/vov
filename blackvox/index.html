@@ -1,15 +1,13 @@
+
 <!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BLACKVOX v3 — Playlists Áudio</title>
-<meta name="description" content="Player leve para playlists via playlist.json.">
+<meta name="description" content="Player leve para playlists via playlist.json, com importar/exportar.">
 <style>
-:root{
-  --bg:#0c0f12;--panel:#141a20;--ring:#232a34;--text:#e9eef3;--muted:#9fb2c7;
-  --brand:#f3b338;--soft:#0e141b;--ok:#28d17c;
-}
+:root{--bg:#0c0f12;--panel:#141a20;--ring:#232a34;--text:#e9eef3;--muted:#9fb2c7;--brand:#f3b338;}
 *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
 header{padding:24px 16px 8px;text-align:center}
 .pill{display:inline-block;font-size:12px;padding:4px 10px;border-radius:999px;background:#1a2330;border:1px solid var(--ring);color:var(--muted)}
@@ -17,28 +15,32 @@ h1{margin:6px 0 0;font-size:22px;font-weight:800}
 .sub{color:var(--muted);font-size:13px;margin-top:4px}
 main{max-width:880px;margin:18px auto 34px;padding:0 16px}
 .player{background:linear-gradient(180deg,#0f1520,#0b1118);border:1px solid var(--ring);border-radius:18px;box-shadow:0 10px 40px #0006,inset 0 0 0 1px #0004;padding:16px}
-.now{display:flex;gap:12px;justify-content:space-between;align-items:center;background:var(--panel);border:1px solid var(--ring);border-radius:12px;padding:10px 12px;margin-bottom:12px}
+.now{display:flex;gap:12px;justify-content:space-between;align-items:center;background:#111822;border:1px solid var(--ring);border-radius:12px;padding:10px 12px;margin-bottom:12px}
 .title{font-weight:700}
 .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 button{border:0;border-radius:10px;padding:9px 12px;font-weight:700;cursor:pointer;background:var(--brand);color:#231a00}
 button.sec{background:#1f2832;color:var(--text);border:1px solid var(--ring)}
 button.gh{background:transparent;color:var(--muted);border:1px solid var(--ring)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
 .progress{height:6px;background:#243041;border-radius:4px;overflow:hidden}
 .bar{height:100%;width:0%;background:linear-gradient(90deg,#ffd66b,var(--brand))}
 .list{display:flex;flex-direction:column;gap:10px;margin:10px 0;max-height:60vh;overflow:auto}
-.item{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--ring);border-radius:12px;padding:10px 12px}
+.item{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#111822;border:1px solid var(--ring);border-radius:12px;padding:10px 12px}
 .item.active{outline:2px solid var(--brand);box-shadow:0 0 0 3px rgba(243,179,56,.15) inset}
 .small{color:var(--muted);font-size:.92rem}
 .footer{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.9rem;margin-top:10px}
 a{color:#86c7ff;text-decoration:none}
 input[type="range"]{accent-color:var(--brand);cursor:pointer}
+.status-ok{color:#6df3a0}
+.status-err{color:#ff8a8a}
+.hidden{display:none}
 </style>
 </head>
 <body>
 <header>
   <span class="pill">V O V</span>
   <h1>BLACKVOX v3 — Playlists Áudio</h1>
-  <div class="sub">Ver • Ouvir • Vender • Viver — Lê <code>playlist.json</code> e toca já.</div>
+  <div class="sub">Ver • Ouvir • Vender • Viver — lê <code>playlist.json</code> e também importa .json.</div>
 </header>
 
 <main>
@@ -59,13 +61,21 @@ input[type="range"]{accent-color:var(--brand);cursor:pointer}
 
     <div class="progress"><div id="bar" class="bar"></div></div>
 
+    <div class="toolbar">
+      <button id="btnImport" class="sec">↑ Importar playlist (.json)</button>
+      <input id="fileJson" type="file" accept="application/json" class="hidden">
+      <button id="btnExport" class="gh">↓ Exportar playlist</button>
+      <button id="btnClear" class="gh">✖ Limpar sessão</button>
+      <a class="gh" href="playlist.json" target="_blank" rel="noopener">ver playlist.json</a>
+    </div>
+
     <div id="list" class="list" aria-label="Lista"></div>
 
     <audio id="audio" crossorigin="anonymous"></audio>
 
     <div class="footer">
       <span class="small">Sessão salva no navegador (localStorage).</span>
-      <a href="playlist.json" target="_blank" rel="noopener">ver playlist.json</a>
+      <span class="small">Dica: prefira MP3 hospedados aqui em <code>/audios/</code> ou em CDN com CORS liberado.</span>
     </div>
   </section>
 </main>
@@ -80,11 +90,20 @@ const btnPlay = document.getElementById('play');
 const btnNext = document.getElementById('next');
 const btnPrev = document.getElementById('prev');
 const vol = document.getElementById('vol');
+const btnImport = document.getElementById('btnImport');
+const fileJson = document.getElementById('fileJson');
+const btnExport = document.getElementById('btnExport');
+const btnClear = document.getElementById('btnClear');
 
 let tracks = [];  // [{title,file}]
 let idx = -1;
 
 // UI
+function setStatus(msg, ok=false, err=false){
+  statusEl.textContent = msg;
+  statusEl.classList.toggle('status-ok', ok);
+  statusEl.classList.toggle('status-err', err);
+}
 function render(){
   listEl.innerHTML = '';
   tracks.forEach((t,i)=>{
@@ -103,43 +122,34 @@ function render(){
   });
   nowEl.textContent = (idx>=0 && tracks[idx])? tracks[idx].title : '—';
 }
-
 function setNow(i){
   idx = i;
   render();
   if(i<0 || i>=tracks.length){
     nowEl.textContent = '—';
-    statusEl.textContent = 'Nenhuma faixa selecionada';
     audio.removeAttribute('src');
     return;
   }
   const t = tracks[i];
   nowEl.textContent = t.title || '—';
-  statusEl.textContent = 'Pronto para tocar';
   audio.src = t.file;
   localStorage.setItem('BVX_LAST', String(i));
 }
-
 function playAt(i){
   setNow(i);
-  audio.play().catch(err=>{
-    statusEl.textContent = 'Falha ao tocar (verifique a URL ou CORS)';
-    console.error('Playback error:', err);
-    alert('Não foi possível tocar esta faixa. Dica: hospede em /audios, GitHub Releases, Dropbox (?raw=1) ou CDN com CORS.');
+  audio.play().then(()=>setStatus('Tocando', true, false)).catch(err=>{
+    console.error(err);
+    setStatus('Falha ao tocar (URL ou CORS)', false, true);
+    alert('Não foi possível tocar esta faixa. Hospede em /audios, GitHub Releases, Dropbox (?raw=1) ou outra CDN com CORS.');
   });
 }
-
 function removeAt(i){
   tracks.splice(i,1);
   if(idx>=tracks.length) idx = tracks.length-1;
-  save();
-  render();
+  save(); render();
   if(idx>=0) setNow(idx); else { audio.pause(); setNow(-1); }
 }
-
-function save(){
-  localStorage.setItem('BVX_PLAYLIST', JSON.stringify(tracks));
-}
+function save(){ localStorage.setItem('BVX_PLAYLIST', JSON.stringify(tracks)); }
 function loadLocal(){
   try{
     const p = JSON.parse(localStorage.getItem('BVX_PLAYLIST')||'[]');
@@ -152,8 +162,8 @@ function loadLocal(){
 
 // Controles
 btnPlay.onclick = ()=> audio.paused ? audio.play() : audio.pause();
-audio.onplay  = ()=> btnPlay.textContent = '⏸';
-audio.onpause = ()=> btnPlay.textContent = '▶️';
+audio.onplay  = ()=> { btnPlay.textContent = '⏸'; setStatus('Tocando', true, false); };
+audio.onpause = ()=> { btnPlay.textContent = '▶️'; setStatus('Pausado'); };
 btnNext.onclick = ()=> tracks.length && playAt( (idx+1)%tracks.length );
 btnPrev.onclick = ()=> tracks.length && playAt( (idx-1+tracks.length)%tracks.length );
 vol.oninput = ()=> audio.volume = parseFloat(vol.value);
@@ -162,6 +172,29 @@ audio.ontimeupdate = ()=>{
 };
 audio.onended = ()=> btnNext.click();
 
+// Importar/Exportar/Limpar
+btnImport.onclick = ()=> fileJson.click();
+fileJson.onchange = async (e)=>{
+  const f = e.target.files[0]; if(!f) return;
+  try{
+    const txt = await f.text();
+    const arr = JSON.parse(txt);
+    if(!Array.isArray(arr)) throw new Error('JSON inválido');
+    tracks = arr; save(); setStatus('Playlist importada', true, false);
+    render(); setNow(0);
+  }catch(err){ console.error(err); setStatus('Erro ao importar .json', false, true); alert('JSON inválido. Use [{"title":"...","file":"..."}]'); }
+};
+btnExport.onclick = ()=>{
+  const blob = new Blob([JSON.stringify(tracks,null,2)],{type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = Object.assign(document.createElement('a'),{href:url,download:'playlist.json'});
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+};
+btnClear.onclick = ()=>{
+  localStorage.removeItem('BVX_PLAYLIST'); localStorage.removeItem('BVX_LAST');
+  tracks = []; idx = -1; render(); setNow(-1); setStatus('Sessão limpa', true, false);
+};
+
 // Carregar playlist.json (com cache-buster)
 async function fetchPlaylist(){
   try{
@@ -169,13 +202,13 @@ async function fetchPlaylist(){
     if(!res.ok) throw new Error('HTTP '+res.status);
     const data = await res.json();
     if(Array.isArray(data) && data.length){
-      tracks = data;
-      save();
+      tracks = data; save(); setStatus('Playlist carregada', true, false);
+    } else {
+      setStatus('playlist.json vazio — importe um .json', false, false);
     }
-    statusEl.textContent = tracks.length ? 'Playlist carregada' : 'Playlist vazia';
   }catch(err){
-    statusEl.textContent = 'Erro ao carregar playlist.json';
     console.error(err);
+    setStatus('Erro ao carregar playlist.json — use Importar .json', false, true);
   }
 }
 
